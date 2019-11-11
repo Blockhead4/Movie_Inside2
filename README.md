@@ -6,7 +6,7 @@ Customized Movie Recommendation Web Application
 
 ### Develop Period
 
-- 30. Oct. 2019 ~ 8. Nov. 2019 (about 5 weeks)
+- 30.Oct.2019 ~ 8.Nov.2019 (about 5 weeks)
 
 ### Develop Environment
 
