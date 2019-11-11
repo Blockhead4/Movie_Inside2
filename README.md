@@ -50,10 +50,10 @@ Customized Movie Recommendation Web Application
   - django_filters
 
 - DataScience
-- Python 3.6
-- numpy
-- pandas
-- requests
-- urllib
-- matplotlib
-- bs4
+  - Python 3.6
+  - numpy
+  - pandas
+  - requests
+  - urllib
+  - matplotlib
+  - bs4
