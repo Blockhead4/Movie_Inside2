@@ -109,6 +109,7 @@ const Collaborative = props => {
 
   const moviePostercomponent = () => {
     let SortedMovie = collaborativeMovie.slice(0, 10);
+    console.log(SortedMovie);
     return (
       <StyledContent>
         <StyledContentTitle>{title}</StyledContentTitle>
@@ -139,7 +140,7 @@ const Collaborative = props => {
           paddingLeft: "20px"
         }}
       >
-        Loading...
+        정보가 부족합니다.
       </div>
     </StyledContent>
   );
@@ -176,9 +177,7 @@ const Collaborative = props => {
         )}
       </div>
       <div>
-        {collaborativeMovie && collaborativeMovie !== []
-          ? moviePostercomponent()
-          : noResult}
+        {collaborativeMovie.length > 0 ? moviePostercomponent() : noResult}
       </div>
     </React.Fragment>
   );
