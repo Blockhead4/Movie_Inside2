@@ -9,7 +9,11 @@ const authRouter = passport => {
   database = firebase.database();
 
   router.get("/", (req, res) => {
-    res.json("Express Auth Management Page");
+    // console.log("--------------------------");
+    // console.log(req.session);
+    // console.log(req.user);
+    // console.log("--------------------------");
+    res.send("Express Auth Management Page");
   });
 
   router.post(
@@ -43,9 +47,10 @@ const authRouter = passport => {
             };
             userRef.set(userInfo);
             console.log("\n maked!");
-            res.writeHead(200);
-            res.redirect("/api/auth/login_process");
-            res.end();
+            req.login(userInfo, err => {
+              if (err) throw err;
+              return res.redirect("/");
+            });
           }
           return;
         },
@@ -64,8 +69,10 @@ const authRouter = passport => {
   });
 
   router.get("/logout_process", (req, res) => {
-    res.send("logout!");
-    res.redirect("/");
+    req.logout();
+    req.session.save(() => {
+      res.redirect("/");
+    });
   });
 
   return router;

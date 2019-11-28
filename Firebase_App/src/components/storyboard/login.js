@@ -36,6 +36,7 @@ class Login extends Component {
 
   render() {
     if (this.props.isAuthenticated) {
+      console.log(this.props.isAuthenticated);
       return <Redirect to="/main" />;
     }
     return (

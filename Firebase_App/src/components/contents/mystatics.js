@@ -49,8 +49,8 @@ const MyStatics = memo(props => {
     return ref.current;
   }
   const userMovie = async searchInfo => {
-    let url = "/movieInfo/";
-    url = url + "?search=" + searchInfo;
+    let url = "/api/auth/movieInfo";
+    // url = url + "?search=" + searchInfo;
     let data = [];
     await axios
       .get(url)

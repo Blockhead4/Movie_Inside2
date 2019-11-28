@@ -58,15 +58,15 @@ const DailyBoxOffice = props => {
   };
 
   const boxOfficeDetail = async () => {
-    const dailyMovie = await getDailyMovie();
-    if (dailyMovie.length > 0) {
-      dailyMovie.forEach(element => {
-        function a() {
-          props.recentMovieInfo(element.movieCd);
-        }
-        a();
-      });
-    }
+    await getDailyMovie();
+    // if (dailyMovie.length > 0) {
+    //   dailyMovie.forEach(element => {
+    //     function a() {
+    //       props.recentMovieInfo(element.movieCd);
+    //     }
+    //     a();
+    //   });
+    // }
   };
 
   useEffect(() => {
@@ -80,7 +80,4 @@ const mapStateToProps = state => {
   return {};
 };
 
-export default connect(
-  mapStateToProps,
-  { recentMovieInfo }
-)(DailyBoxOffice);
+export default connect(mapStateToProps, { recentMovieInfo })(DailyBoxOffice);

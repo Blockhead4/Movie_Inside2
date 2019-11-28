@@ -1,11 +1,6 @@
 import * as types from "./actionTypes";
 import axios from "axios";
 import { getErrors } from "./messages";
-// import { movieInfo, clearMovieInfo } from "./movieInfo";
-
-// django csrftoken
-// axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-// axios.defaults.xsrfCookieName = "csrftoken";
 
 export const tokenConfig = getState => {
   //state에서 token을 가져옴
@@ -34,7 +29,6 @@ export const register = ({ username, password }) => async dispatch => {
   await axios
     .post("/api/auth/register_process", body, config)
     .then(res => {
-      console.log(res);
       dispatch({
         type: types.REGISTRATION_SUCCESSFUL,
         payload: res.data
@@ -62,6 +56,7 @@ export const login = ({ username, password }) => async dispatch => {
   await axios
     .post("/api/auth/login_process", body, config)
     .then(res => {
+      console.log(res);
       dispatch({
         type: types.LOGIN_SUCCESSFUL,
         payload: res.data
@@ -78,8 +73,9 @@ export const login = ({ username, password }) => async dispatch => {
 
 export const logout = () => async (dispatch, getState) => {
   await axios
-    .post("/api/auth/logout_process", null, tokenConfig(getState))
+    .get("/api/auth/logout_process", null, tokenConfig(getState))
     .then(res => {
+      console.log(res);
       dispatch({
         type: types.LOGOUT_SUCCESSFUL
       });

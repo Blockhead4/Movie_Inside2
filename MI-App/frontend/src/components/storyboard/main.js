@@ -75,7 +75,7 @@ const Main = props => {
               />
               <Route exact path="/logout" component={Logout} />
             </Switch>
-            <DailyBoxOffice isUnMount={isMyPage} />
+            {/* <DailyBoxOffice isUnMount={isMyPage} /> */}
             <div style={{ height: "10%" }} />
           </div>
           <StyledBottomNav>
@@ -114,7 +114,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { movieInfo, loadUserProfile }
-)(Main);
+export default connect(mapStateToProps, { movieInfo, loadUserProfile })(Main);

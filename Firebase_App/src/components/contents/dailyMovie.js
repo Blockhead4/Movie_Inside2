@@ -10,12 +10,13 @@ import {
   StyledContent,
   StyledContentTitle
 } from "./styleComponent";
+import { parse } from "path";
 
 const DailyMovie = props => {
   const [isDetails, setIsDetails] = useState(false);
   const [selected, setSelected] = useState([]);
 
-  const { recentInfoLoaded, recentMovieInfo } = props;
+  // const { recentInfoLoaded, recentMovieInfo } = props;
 
   const compare = (a, b) => {
     if (parseInt(a.rank) < parseInt(b.rank)) {
@@ -30,18 +31,24 @@ const DailyMovie = props => {
   let filteredData = [];
   let bestMovieInfo = [];
 
-  if (recentInfoLoaded) {
-    recentMovieInfo.forEach(function(x) {
-      props.parsedRank.forEach(function(y) {
-        if (y.movieCd === x.movieCd) {
-          let temp = Object.assign(x, y);
-          filteredData.push(temp);
-        }
-      });
-    });
-  }
+  // if (recentInfoLoaded) {
+  //   recentMovieInfo.forEach(function(x) {
+  //     props.parsedRank.forEach(function(y) {
+  //       if (y.movieCd === x.movieCd) {
+  //         let temp = Object.assign(x, y);
+  //         filteredData.push(temp);
+  //       }
+  //     });
+  //   });
+  // }
 
-  bestMovieInfo = filteredData.sort(compare);
+  if (props.parsedRank.length) {
+    props.parsedRank.forEach(data => {
+      filteredData.push(data);
+    });
+
+    bestMovieInfo = filteredData.sort(compare);
+  }
 
   const handleClick = i => {
     setIsDetails(true);
@@ -126,7 +133,9 @@ const DailyMovie = props => {
           ) : (
             <div></div>
           )}
-          <div>{recentInfoLoaded ? moviePostercomponent() : noResult}</div>
+          <div>
+            {props.parsedRank.length ? moviePostercomponent() : noResult}
+          </div>
         </div>
       )}
     </div>
@@ -135,9 +144,9 @@ const DailyMovie = props => {
 
 const mapStateToProps = state => {
   return {
-    recentMovieInfo: state.getMovieInfo.recentMovieInfo,
-    recentInfoLoaded: state.getMovieInfo.recentInfoLoaded,
-    user: state.auth.user
+    // recentMovieInfo: state.getMovieInfo.recentMovieInfo,
+    // recentInfoLoaded: state.getMovieInfo.recentInfoLoaded,
+    // user: state.auth.user
   };
 };
 

@@ -20,8 +20,8 @@ const Collaborative = props => {
   const [selected, setSelected] = useState([]);
 
   const getMovieInfo = async searchInfo => {
-    let url = "api/movieInfo/";
-    url = url + "?search=" + searchInfo;
+    let url = "/api/movieInfo";
+    // url = url + "?search=" + searchInfo;
     await axios
       .get(url)
       .then(response => {

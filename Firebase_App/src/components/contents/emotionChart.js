@@ -93,8 +93,8 @@ const EmotionGraph = props => {
 
   useEffect(() => {
     const getScore = async movieCd => {
-      let url = "/movie-api/";
-      url = url + "?search=" + movieCd;
+      let url = "/api/movieScore";
+      // url = url + "?search=" + movieCd;
       try {
         const response = await axios.get(url);
         setMovieData(response.data[0]);

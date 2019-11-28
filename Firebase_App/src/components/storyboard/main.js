@@ -114,7 +114,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { movieInfo, loadUserProfile }
-)(Main);
+export default connect(mapStateToProps, { movieInfo, loadUserProfile })(Main);

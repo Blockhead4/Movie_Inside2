@@ -54,8 +54,8 @@ const UserMovie = memo(props => {
     query.push(searchInfo);
 
     if (!isExist) {
-      let url = "/movieInfo/";
-      url = url + "?search=" + searchInfo;
+      let url = "/api/movieInfo";
+      // url = url + "?search=" + searchInfo;
       try {
         const fetchedData = await axios.get(url);
 

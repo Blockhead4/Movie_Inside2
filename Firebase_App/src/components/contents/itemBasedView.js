@@ -15,8 +15,8 @@ const ItemBasedView = props => {
   }, []);
 
   const movieInfo = async searchInfo => {
-    let url = "/movieInfo/";
-    url = url + "?search=" + searchInfo;
+    let url = "/api/movieInfo/";
+    // url = url + "?search=" + searchInfo;
     try {
       let result = await axios.get(url);
       dispatch(collaboToDetail(result.data));
