@@ -4,12 +4,12 @@ import { Route, Switch, BrowserRouter, Redirect } from "react-router-dom";
 
 import { Provider, connect } from "react-redux";
 
-import { loadUser } from "./actions/auth";
+import { loadUser } from "../actions/auth";
 
 import store from "./store";
-import Login from "./components/storyboard/login";
-import Register from "./components/storyboard/register";
-import Main from "./components/storyboard/main";
+import Login from "./storyboard/login";
+import Register from "./storyboard/register";
+import Main from "./storyboard/main";
 
 import { createGlobalStyle } from "styled-components";
 

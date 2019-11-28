@@ -4,8 +4,8 @@ import { getErrors } from "./messages";
 // import { movieInfo, clearMovieInfo } from "./movieInfo";
 
 // django csrftoken
-axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-axios.defaults.xsrfCookieName = "csrftoken";
+// axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+// axios.defaults.xsrfCookieName = "csrftoken";
 
 export const tokenConfig = getState => {
   //state에서 token을 가져옴
@@ -32,8 +32,9 @@ export const register = ({ username, password }) => async dispatch => {
 
   const body = { username, password };
   await axios
-    .post("/api/register/", body, config)
+    .post("/api/auth/register_process", body, config)
     .then(res => {
+      console.log(res);
       dispatch({
         type: types.REGISTRATION_SUCCESSFUL,
         payload: res.data
@@ -59,7 +60,7 @@ export const login = ({ username, password }) => async dispatch => {
   const body = { username, password };
 
   await axios
-    .post("/api/login/", body, config)
+    .post("/api/auth/login_process", body, config)
     .then(res => {
       dispatch({
         type: types.LOGIN_SUCCESSFUL,
@@ -75,12 +76,25 @@ export const login = ({ username, password }) => async dispatch => {
     });
 };
 
+export const logout = () => async (dispatch, getState) => {
+  await axios
+    .post("/api/auth/logout_process", null, tokenConfig(getState))
+    .then(res => {
+      dispatch({
+        type: types.LOGOUT_SUCCESSFUL
+      });
+    })
+    .then(err => {
+      console.log(err);
+    });
+};
+
 export const loadUser = () => async (dispatch, getState) => {
   dispatch({
     type: types.USER_LOADING
   });
   await axios
-    .get("/api/user/", tokenConfig(getState))
+    .get("/api/user", tokenConfig(getState))
     .then(res => {
       // console.log(res);
       dispatch({
@@ -98,26 +112,13 @@ export const loadUser = () => async (dispatch, getState) => {
     });
 };
 
-export const logout = () => async (dispatch, getState) => {
-  await axios
-    .post("/api/logout/", null, tokenConfig(getState))
-    .then(res => {
-      dispatch({
-        type: types.LOGOUT_SUCCESSFUL
-      });
-    })
-    .then(err => {
-      console.log(err);
-    });
-};
-
 // load user custom
 export const loadUserProfile = () => async (dispatch, getState) => {
   dispatch({
     type: types.USER_PROFILE_LOADING
   });
   await axios
-    .get("/api/profile/", tokenConfig(getState))
+    .get("/api/user/profile", tokenConfig(getState))
     .then(res => {
       dispatch({
         type: types.USER_PROFILE_LOADED,

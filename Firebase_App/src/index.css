@@ -1,13 +1,23 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: "nanum";
+  src: url("./statics/fonts/NanumSquareB.ttf");
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+@font-face {
+  font-family: "nanumB";
+  src: url("./statics/fonts/NanumSquareEB.ttf");
+}
+
+@font-face {
+  font-family: "london";
+  src: url("./statics/fonts/LondonBetween.ttf");
+}
+
+@font-face {
+  font-family: "londonMM";
+  src: url("./statics/fonts/LondonMM.ttf");
+}
+
+#root {
+  height: 100%;
 }

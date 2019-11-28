@@ -20,7 +20,7 @@ const Collaborative = props => {
   const [selected, setSelected] = useState([]);
 
   const getMovieInfo = async searchInfo => {
-    let url = "/movieInfo/";
+    let url = "api/movieInfo/";
     url = url + "?search=" + searchInfo;
     await axios
       .get(url)
@@ -41,7 +41,7 @@ const Collaborative = props => {
         const config = getConfig();
 
         await axios
-          .get("/api/watched/", config)
+          .get("/api/user/watched/", config)
           .then(res => {
             data.push(res.data);
           })
@@ -59,7 +59,7 @@ const Collaborative = props => {
         const config = getConfig();
 
         await axios
-          .get("/api/like/", config)
+          .get("/api/user/like/", config)
           .then(res => {
             data.push(res.data);
           })
@@ -77,7 +77,7 @@ const Collaborative = props => {
         const config = getConfig();
 
         await axios
-          .get("/api/hate/", config)
+          .get("/api/user/hate/", config)
           .then(res => {
             data.push(res.data);
           })

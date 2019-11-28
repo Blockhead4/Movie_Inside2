@@ -3,7 +3,7 @@ import axios from "axios";
 import { getErrors } from "./messages";
 
 export const getScore = movieCd => async dispatch => {
-  let url = "/movie-api/";
+  let url = "api/movieScore/";
   url = url + "?search=" + movieCd;
   await axios
     .get(url)

@@ -19,8 +19,7 @@ import {
   StyledForm,
   StyledLoginRegister,
   StyledInput,
-  StyledBottomNav,
-  StyledContentHover
+  StyledBottomNav
 } from "../contents/styleComponent";
 
 class Login extends Component {
@@ -40,7 +39,7 @@ class Login extends Component {
       return <Redirect to="/main" />;
     }
     return (
-      <div style={{ position: "relative", height: "100%", width: "100%" }}>
+      <div style={{ position: "block", height: "100%", width: "100%" }}>
         <div style={{ display: "flex", height: "50%" }}>
           <div style={{ width: "100%" }}>
             <img src={bgImg01} alt={"firstImg"} width="100%" height="100%" />
@@ -190,7 +189,4 @@ const mapStateToProps = state => {
 //   };
 // };
 
-export default connect(
-  mapStateToProps,
-  { login }
-)(Login);
+export default connect(mapStateToProps, { login })(Login);
