@@ -3,11 +3,9 @@ const router = express.Router();
 
 const shortid = require("shortid");
 const firebase = require("firebase");
-const firebaseConfig = require("../config/config");
 
-const authRouter = () => {
+const authRouter = passport => {
   let database;
-  firebase.initializeApp(firebaseConfig);
   database = firebase.database();
 
   router.get("/", (req, res) => {
@@ -16,51 +14,51 @@ const authRouter = () => {
 
   router.post(
     "/login_process",
-    // passport.authenticate("local", {
-    //   successRedirect: "/main",
-    //   failureRedirect: "/login"
-    // })
-    (req, res) => {
-      res.send("logined!");
-    }
+    passport.authenticate("local", {
+      successRedirect: "/",
+      failureRedirect: "/login"
+    })
   );
 
   router.post("/register_process", (req, res) => {
-    // console.log(req);
     let post = req.body;
     let username = post.username;
     let password = post.password;
-    let users = database.ref("users/" + username);
-    let isExist;
-    const check = database
-      .ref("users/" + username)
-      .once("value")
-      .then(data => {
-        let isExist;
-        if (data.val()) {
-          isExist = true;
-        } else {
-          isExist = false;
+    let userRef = database.ref("users/" + username);
+    let userInfo;
+    const check = () =>
+      userRef.once("value").then(
+        snapshot => {
+          console.log(snapshot.val());
+          if (snapshot.val()) {
+            // console.log(snapshot.val());
+            console.log("This username already exist!");
+            req.flash("error", "This username already exist!");
+            res.end();
+          } else {
+            let userInfo = {
+              id: shortid.generate(),
+              username: username,
+              password: password
+            };
+            userRef.set(userInfo);
+            console.log("\n maked!");
+            res.writeHead(200);
+            res.redirect("/api/auth/login_process");
+            res.end();
+          }
+          return;
+        },
+        err => {
+          console.log(err);
         }
-        return data.val();
-      });
+      );
 
-    console.log("test \n\n", check);
-    if (users.once("value").val) {
-      console.log("This username already exist!");
-      req.flash("error", "This username already exist!");
-    } else {
-      let userInfo = {
-        id: shortid.generate(),
-        username: username,
-        password: password
-      };
-      users.set(userInfo);
-      console.log("\n maked!");
-    }
+    check();
 
-    // req.login(users, err => {
+    // req.login(userInfo, err => {
     //   if (err) throw err;
+    //   console.log("login!~!!!\n\n", userInfo);
     //   return res.redirect("/main");
     // });
   });

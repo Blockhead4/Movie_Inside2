@@ -34,6 +34,7 @@ export const register = ({ username, password }) => async dispatch => {
   await axios
     .post("/api/register/", body, config)
     .then(res => {
+      console.log(res);
       dispatch({
         type: types.REGISTRATION_SUCCESSFUL,
         payload: res.data
