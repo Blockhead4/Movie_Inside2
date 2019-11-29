@@ -267,4 +267,5 @@ const EmotionGraph = props => {
 const mapStateToProps = () => {
   return;
 };
+
 export default connect(mapStateToProps, { loadUser })(EmotionGraph);
