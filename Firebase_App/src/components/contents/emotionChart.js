@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { connect } from "react-redux";
+
 import { getScore } from "../../actions/movieScore";
+import { loadUser } from "../../actions/auth";
 
 import {
   Radar,
@@ -13,47 +16,115 @@ import {
 } from "recharts";
 
 const EmotionGraph = props => {
-  const [userEmotion, setUserEmotion] = useState({});
-  const [err, setErr] = useState(null);
+  // const [userEmotion, setUserEmotion] = useState({});
+  // const [err, setErr] = useState(null);
   const [movieData, setMovieData] = useState([]);
   const scoreLoaded = useSelector(state => state.getScore.scoreLoaded);
   const user = useSelector(state => state.auth.user);
+  console.log(user);
   let score = movieData;
 
   let data;
 
+  // if (score) {
+  //   data = [
+  //     {
+  //       subject: "감동",
+  //       A: score.impression,
+  //       B: userEmotion.impression
+  //     },
+  //     {
+  //       subject: "공포",
+  //       A: score.fear,
+  //       B: userEmotion.fear
+  //     },
+  //     {
+  //       subject: "분노",
+  //       A: score.anger,
+  //       B: userEmotion.anger
+  //     },
+  //     {
+  //       subject: "지루함",
+  //       A: score.boredom,
+  //       B: userEmotion.boredom
+  //     },
+  //     {
+  //       subject: "슬픔",
+  //       A: score.sadness,
+  //       B: userEmotion.sadness
+  //     },
+  //     {
+  //       subject: "유쾌",
+  //       A: score.fun,
+  //       B: userEmotion.fun
+  //     }
+  //   ];
+  // } else {
+  //   data = [
+  //     {
+  //       subject: "감동",
+  //       A: 0,
+  //       B: userEmotion.impression
+  //     },
+  //     {
+  //       subject: "공포",
+  //       A: 0,
+  //       B: userEmotion.fear
+  //     },
+  //     {
+  //       subject: "분노",
+  //       A: 0,
+  //       B: userEmotion.anger
+  //     },
+  //     {
+  //       subject: "지루함",
+  //       A: 0,
+  //       B: userEmotion.boredom
+  //     },
+  //     {
+  //       subject: "슬픔",
+  //       A: 0,
+  //       B: userEmotion.sadness
+  //     },
+  //     {
+  //       subject: "유쾌",
+  //       A: 0,
+  //       B: userEmotion.fun
+  //     }
+  //   ];
+  // }
+
   if (score) {
-    // B는 내가 선호하는 감정스테이트 정보로 넣을 예정임
     data = [
       {
         subject: "감동",
         A: score.impression,
-        B: userEmotion.impression
+        B: 0
       },
       {
         subject: "공포",
         A: score.fear,
-        B: userEmotion.fear
+        B: 0
       },
       {
         subject: "분노",
         A: score.anger,
-        B: userEmotion.anger
+        B: 0
       },
       {
         subject: "지루함",
         A: score.boredom,
-        B: userEmotion.boredom
+        B: 0
       },
       {
         subject: "슬픔",
         A: score.sadness,
-        B: userEmotion.sadness
+        B: 0
       },
       {
         subject: "유쾌",
         A: score.fun,
-        B: userEmotion.fun
+        B: 0
       }
     ];
   } else {
@@ -61,40 +132,42 @@ const EmotionGraph = props => {
       {
         subject: "감동",
         A: 0,
-        B: userEmotion.impression
+        B: 0
       },
       {
         subject: "공포",
         A: 0,
-        B: userEmotion.fear
+        B: 0
       },
       {
         subject: "분노",
         A: 0,
-        B: userEmotion.anger
+        B: 0
       },
       {
         subject: "지루함",
         A: 0,
-        B: userEmotion.boredom
+        B: 0
       },
       {
         subject: "슬픔",
         A: 0,
-        B: userEmotion.sadness
+        B: 0
       },
       {
         subject: "유쾌",
         A: 0,
-        B: userEmotion.fun
+        B: 0
       }
     ];
   }
 
   useEffect(() => {
+    props.loadUser();
+
     const getScore = async movieCd => {
-      let url = "/api/movieScore";
-      // url = url + "?search=" + movieCd;
+      let url = "/api/movieScore/";
+      url += movieCd;
       try {
         const response = await axios.get(url);
         setMovieData(response.data[0]);
@@ -102,28 +175,29 @@ const EmotionGraph = props => {
         console.log(err);
       }
     };
+
     getScore(props.movieCd);
 
-    const userMovieEmotion = async () => {
-      const token = localStorage.getItem("token");
-      const config = {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      };
+    // const userMovieEmotion = async () => {
+    //   const token = localStorage.getItem("token");
+    //   const config = {
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     }
+    //   };
 
-      if (token) {
-        config.headers["Authorization"] = `Token ${token}`;
-      }
-      let url = "/api/userMovieEmotion/";
-      try {
-        const response = await axios.get(url, config);
-        setUserEmotion(response.data[0]);
-      } catch (e) {
-        setErr(e);
-      }
-    };
-    userMovieEmotion();
+    //   if (token) {
+    //     config.headers["Authorization"] = `Token ${token}`;
+    //   }
+    //   let url = "/api/userMovieEmotion/";
+    //   try {
+    //     const response = await axios.get(url, config);
+    //     setUserEmotion(response.data[0]);
+    //   } catch (e) {
+    //     setErr(e);
+    //   }
+    // };
+    // userMovieEmotion();
   }, []);
 
   return (
@@ -136,7 +210,8 @@ const EmotionGraph = props => {
         fontFamily: "nanumB"
       }}
     >
-      {scoreLoaded && userEmotion ? (
+      {/* {scoreLoaded && userEmotion ? ( */}
+      {scoreLoaded ? (
         <RadarChart
           cx={props.cx ? props.cx : "50%"}
           cy={props.cy ? props.cy : "50%"}
@@ -189,4 +264,7 @@ const EmotionGraph = props => {
   );
 };
 
-export default EmotionGraph;
+const mapStateToProps = () => {
+  return;
+};
+export default connect(mapStateToProps, { loadUser })(EmotionGraph);

@@ -5,8 +5,7 @@ const shortid = require("shortid");
 const firebase = require("firebase");
 
 const authRouter = passport => {
-  let database;
-  database = firebase.database();
+  let database = firebase.database();
 
   router.get("/", (req, res) => {
     // console.log("--------------------------");

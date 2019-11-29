@@ -20,7 +20,63 @@ app.use(compression());
 app.use(session(config.sessionConfig));
 app.use(flash());
 
-const passport = require("./lib/passport")(app);
+let database = firebase.database();
+
+const passport = require("passport"),
+  LocalStrategy = require("passport-local").Strategy;
+// GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser((user, done) => {
+  console.log("serializeUser", user);
+  done(null, user.username);
+});
+
+passport.deserializeUser((id, done) => {
+  console.log("deserializeUser come in!");
+  database.ref("users/" + id).on("value", snapshot => {
+    let userInfo = snapshot.val();
+    console.log("deserializeUser", userInfo);
+    done(null, userInfo.username);
+  });
+});
+
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: "username",
+      passwordField: "password"
+      // session: true
+    },
+    (username, password, done) => {
+      console.log("LocalStrategy", username, password);
+      let user;
+      database.ref("users/" + username).on(
+        "value",
+        snapshot => {
+          console.log("user data: \n\n", snapshot.val());
+          user = snapshot.val();
+
+          if (user) {
+            return done(null, user, {
+              message: "Welcome!"
+            });
+          } else {
+            return done(null, false, {
+              message: "Incorrect user information"
+            });
+          }
+        },
+        err => {
+          console.log("The read failed: " + err.code);
+        }
+      );
+    }
+  )
+);
+
 const indexRouter = require("./routes/index");
 const authRouter = require("./routes/auth")(passport);
 const userRouter = require("./routes/user");

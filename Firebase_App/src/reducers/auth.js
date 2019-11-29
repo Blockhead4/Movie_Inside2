@@ -2,7 +2,7 @@ import * as types from "../actions/actionTypes";
 
 const initialState = {
   token: localStorage.getItem("token"),
-  isAuthenticated: null,
+  isAuthenticated: false,
   isLoading: false,
   user: null,
   profileLoading: false,

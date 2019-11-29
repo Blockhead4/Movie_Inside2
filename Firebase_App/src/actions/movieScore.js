@@ -3,18 +3,25 @@ import axios from "axios";
 import { getErrors } from "./messages";
 
 export const getScore = movieCd => async dispatch => {
-  let url = "/api/movieScore";
+  let url = "/api/movieScore/";
   url += movieCd;
   await axios
     .get(url)
-    .then(response => {
-      dispatch({
-        type: types.GET_SCORE,
-        payload: response.data
-      });
+    .then(res => {
+      if (res.data) {
+        dispatch({
+          type: types.GET_SCORE,
+          payload: res.data
+        });
+      } else {
+        dispatch({
+          type: types.GET_SCORE,
+          payload: []
+        });
+      }
     })
     .catch(err => {
       console.log(err);
-      dispatch(() => getErrors(err.response.data, err.response.status));
+      dispatch(() => getErrors(err.res.data, err.res.status));
     });
 };

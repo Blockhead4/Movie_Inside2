@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 const firebase = require("firebase");
-
-let database;
 database = firebase.database();
 
 router.get("/:searchInfo", (req, res) => {

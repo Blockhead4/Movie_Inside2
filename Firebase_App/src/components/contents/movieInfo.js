@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 
-import ItemBasedView from "./itemBasedView";
+// import ItemBasedView from "./itemBasedView";
 import PreferenceChart from "./preferenceChart";
 import EmotionGraph from "./emotionChart";
 
@@ -32,8 +32,8 @@ import { group } from "react-icons-kit/fa/group";
 import { ic_fiber_new } from "react-icons-kit/md/ic_fiber_new";
 
 // django csrftoken
-axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-axios.defaults.xsrfCookieName = "csrftoken";
+// axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+// axios.defaults.xsrfCookieName = "csrftoken";
 
 export const getConfig = () => {
   const token = localStorage.getItem("token");
@@ -409,7 +409,7 @@ export const MovieDetailsInfo = props => {
         ) : (
           <div style={{ width: "30%" }}>
             <div>
-              <ItemBasedView movieCd={props.movieCd}></ItemBasedView>
+              {/* <ItemBasedView movieCd={props.movieCd}></ItemBasedView> */}
             </div>
           </div>
         )}
