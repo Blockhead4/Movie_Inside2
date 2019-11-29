@@ -24,3 +24,6 @@ yarn-error.log*
 
 # firebase
 .firebase
+
+# api key
+/src/components/config/apiKey.js

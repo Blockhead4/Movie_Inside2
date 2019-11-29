@@ -10,7 +10,6 @@ import {
   StyledContent,
   StyledContentTitle
 } from "./styleComponent";
-import { parse } from "path";
 
 const DailyMovie = props => {
   const [isDetails, setIsDetails] = useState(false);
@@ -41,6 +40,8 @@ const DailyMovie = props => {
   //     });
   //   });
   // }
+
+  // bestMovieInfo = filteredData.sort(compare);
 
   if (props.parsedRank.length) {
     props.parsedRank.forEach(data => {
@@ -134,6 +135,7 @@ const DailyMovie = props => {
             <div></div>
           )}
           <div>
+            {/* {recentInfoLoaded ? moviePostercomponent() : noResult} */}
             {props.parsedRank.length ? moviePostercomponent() : noResult}
           </div>
         </div>
@@ -145,7 +147,7 @@ const DailyMovie = props => {
 const mapStateToProps = state => {
   return {
     // recentMovieInfo: state.getMovieInfo.recentMovieInfo,
-    // recentInfoLoaded: state.getMovieInfo.recentInfoLoaded,
+    // recentInfoLoaded: state.getMovieInfo.recentInfoLoaded
     // user: state.auth.user
   };
 };

@@ -3,11 +3,12 @@ import axios from "axios";
 import { getErrors } from "./messages";
 
 export const movieInfo = searchInfo => async dispatch => {
-  let url = "/api/movieInfo";
-  // url = url + "?search=" + searchInfo;
+  let url = "/api/movieInfo/";
+  url += searchInfo;
   await axios
     .get(url)
     .then(res => {
+      console.log(res.data);
       dispatch({
         type: types.GET_MOVIE_INFO,
         payload: res.data
@@ -20,11 +21,12 @@ export const movieInfo = searchInfo => async dispatch => {
 };
 
 export const recentMovieInfo = searchInfo => async dispatch => {
-  let url = "/api/movieInfo";
-  // url = url + "?search=" + searchInfo;
+  let url = "/api/movieInfo/";
+  url += searchInfo;
   await axios
     .get(url)
     .then(res => {
+      console.log(res.data);
       dispatch({
         type: types.GET_RECENT_MOVIE_INFO,
         payload: res.data

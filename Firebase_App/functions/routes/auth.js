@@ -33,9 +33,7 @@ const authRouter = passport => {
     const check = () =>
       userRef.once("value").then(
         snapshot => {
-          console.log(snapshot.val());
           if (snapshot.val()) {
-            // console.log(snapshot.val());
             console.log("This username already exist!");
             req.flash("error", "This username already exist!");
             res.end();

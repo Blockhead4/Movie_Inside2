@@ -56,7 +56,7 @@ export const login = ({ username, password }) => async dispatch => {
   await axios
     .post("/api/auth/login_process", body, config)
     .then(res => {
-      console.log(res);
+      // console.log(res);
       dispatch({
         type: types.LOGIN_SUCCESSFUL,
         payload: res.data
@@ -75,12 +75,12 @@ export const logout = () => async (dispatch, getState) => {
   await axios
     .get("/api/auth/logout_process", null, tokenConfig(getState))
     .then(res => {
-      console.log(res);
+      // console.log(res);
       dispatch({
         type: types.LOGOUT_SUCCESSFUL
       });
     })
-    .then(err => {
+    .catch(err => {
       console.log(err);
     });
 };

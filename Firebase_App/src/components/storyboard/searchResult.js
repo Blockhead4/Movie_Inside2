@@ -14,9 +14,9 @@ const SearchResult = props => {
   const [isDetails, setIsDetails] = useState(false);
   const [selected, setSelected] = useState([]);
   const movieInfo = useSelector(state => state.getMovieInfo.movieInfo);
-  const collaboToDetail = useSelector(
-    state => state.getMovieInfo.collaboToDetail
-  );
+  // const collaboToDetail = useSelector(
+  //   state => state.getMovieInfo.collaboToDetail
+  // );
 
   const { keyword } = props;
 
@@ -27,16 +27,16 @@ const SearchResult = props => {
   };
 
   useEffect(() => {
-    if (collaboToDetail) {
-      setSelected(collaboToDetail);
-      setIsDetails(true);
-    }
+    // if (collaboToDetail) {
+    //   setSelected(collaboToDetail);
+    //   setIsDetails(true);
+    // }
     return () => {
       setIsDetails(false);
       setSelected([]);
     };
-  }, [keyword, collaboToDetail]);
-
+  }, [keyword]);
+  // [keyword, collaboToDetail]
   const details = props => {
     return (
       <StyledContent>
@@ -98,7 +98,7 @@ const SearchResult = props => {
         <div />
       )}
       {keyword && keyword !== " " ? (
-        <div>{movieInfo.length > 0 ? search() : noResult}</div>
+        <div>{movieInfo.length ? search() : noResult}</div>
       ) : (
         noResult
       )}

@@ -5,8 +5,8 @@ const initialState = {
   movieInfo: [],
   recentMovieInfo: [],
   recentInfoLoaded: false,
-  InfoLoaded: false,
-  collaboToDetail: []
+  InfoLoaded: false
+  // collaboToDetail: []
 };
 
 export default function getMovieInfo(state = initialState, action) {
@@ -31,11 +31,11 @@ export default function getMovieInfo(state = initialState, action) {
         movieInfo: [],
         InfoLoaded: false
       };
-    case types.COLLABO_TO_DETAIL:
-      return {
-        ...state,
-        collaboToDetail: action.payload
-      };
+    // case types.COLLABO_TO_DETAIL:
+    //   return {
+    //     ...state,
+    //     collaboToDetail: action.payload
+    //   };
     default:
       return state;
   }

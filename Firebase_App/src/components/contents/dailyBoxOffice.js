@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { connect } from "react-redux";
+
 import { recentMovieInfo } from "../../actions/movieInfo";
 import DailyMovie from "./dailyMovie";
-import axios from "axios";
 
-const KEY = "918fb53581a78bbd50069905bb10fc8c";
-// key1 = "430156241533f1d058c603178cc3ca0e"
-// key2 = "843263a42ef422fedcc5a1abcbbfbaa7"
-// key3 = "6c3bac1836c5bf83e8beef288cbd5665"
-// key4 = "918fb53581a78bbd50069905bb10fc8c"
-// key5 = "8332302a9428957b49381ad9224573f8"
-// key6 = "a5f5309f0deede1bdb13b312643e301a"
-// key7 = "0c5654e287cf22b3a90d0fb7ad2115da"
-// key8 = "987f0f206c93036e23e8b225a6382d24"
-// key9 = "a3639b253586ed914a06659d53a62177"
+import apiKeys from "../config/apiKey";
+
+const KEY = apiKeys.key4;
 
 const DailyBoxOffice = props => {
   const [parsedRank, setParseRank] = useState([]);
@@ -59,6 +53,7 @@ const DailyBoxOffice = props => {
 
   const boxOfficeDetail = async () => {
     await getDailyMovie();
+    // const dailyMovie = await getDailyMovie();
     // if (dailyMovie.length > 0) {
     //   dailyMovie.forEach(element => {
     //     function a() {

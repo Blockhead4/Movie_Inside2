@@ -5,7 +5,6 @@ import { logout } from "../../actions/auth";
 import { StyledContent, StyledContentTitle } from "../contents/styleComponent";
 
 const Logout = props => {
-  console.log(props);
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
@@ -48,7 +47,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { logout }
-)(Logout);
+export default connect(mapStateToProps, { logout })(Logout);

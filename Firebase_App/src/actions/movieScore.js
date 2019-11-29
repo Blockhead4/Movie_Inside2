@@ -4,7 +4,7 @@ import { getErrors } from "./messages";
 
 export const getScore = movieCd => async dispatch => {
   let url = "/api/movieScore";
-  // url = url + "?search=" + movieCd;
+  url += movieCd;
   await axios
     .get(url)
     .then(response => {
