@@ -26,21 +26,29 @@ const SearchResult = props => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // useEffect(() => {
+  //   if (collaboToDetail) {
+  //     setSelected(collaboToDetail);
+  //     setIsDetails(true);
+  //   }
+  //   return () => {
+  //     setIsDetails(false);
+  //     setSelected([]);
+  //     console.log("initialize!");
+  //   };
+  // }, [keyword, collaboToDetail]);
+
   useEffect(() => {
-    // if (collaboToDetail) {
-    //   setSelected(collaboToDetail);
-    //   setIsDetails(true);
-    // }
-    return () => {
-      setIsDetails(false);
-      setSelected([]);
-    };
+    setIsDetails(false);
+    setSelected([]);
+    console.log("initialize!");
   }, [keyword]);
-  // [keyword, collaboToDetail]
+
   const details = props => {
     return (
       <StyledContent>
         {selected.map(info => {
+          console.log("seleted: ", info);
           return (
             <MovieDetailsInfo
               key={info.movieCd}
@@ -90,6 +98,7 @@ const SearchResult = props => {
     </StyledContent>
   );
 
+  console.log("details: ", isDetails);
   return (
     <div style={{ flex: 1 }}>
       {isDetails ? (

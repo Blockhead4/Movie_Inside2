@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { connect } from "react-redux";
 
 import { getScore } from "../../actions/movieScore";
-import { loadUser } from "../../actions/auth";
 
 import {
   Radar,
@@ -21,7 +20,7 @@ const EmotionGraph = props => {
   const [movieData, setMovieData] = useState([]);
   const scoreLoaded = useSelector(state => state.getScore.scoreLoaded);
   const user = useSelector(state => state.auth.user);
-  console.log(user);
+  console.log("emotion user: ", user);
   let score = movieData;
 
   let data;
@@ -163,8 +162,6 @@ const EmotionGraph = props => {
   }
 
   useEffect(() => {
-    props.loadUser();
-
     const getScore = async movieCd => {
       let url = "/api/movieScore/";
       url += movieCd;
@@ -264,8 +261,4 @@ const EmotionGraph = props => {
   );
 };
 
-const mapStateToProps = () => {
-  return;
-};
-
-export default connect(mapStateToProps, { loadUser })(EmotionGraph);
+export default EmotionGraph;

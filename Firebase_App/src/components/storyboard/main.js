@@ -3,7 +3,7 @@ import { Route, Switch, BrowserRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { movieInfo } from "../../actions/movieInfo";
-import { loadUserProfile } from "../../actions/auth";
+import { loadUser, loadUserProfile } from "../../actions/auth";
 import { StyledBottomNav } from "../contents/styleComponent";
 
 import Nav from "../contents/nav";
@@ -20,6 +20,8 @@ const Main = props => {
   const [pageChange, setPageChange] = useState(false);
 
   useEffect(() => {
+    console.log("user loaded!!");
+    props.loadUser();
     props.loadUserProfile();
   }, [isMyPage]);
 
@@ -28,7 +30,7 @@ const Main = props => {
       let value = JSON.parse(clickType);
       const keyword = value.keyword;
       const filteredKeyword = keyword.replace(/ +/g, " ").trim();
-      props.movieInfo(keyword);
+      props.movieInfo(filteredKeyword);
       setRenderKeyword(filteredKeyword);
       setIsMyPage(false);
     } catch {
@@ -114,4 +116,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { movieInfo, loadUserProfile })(Main);
+export default connect(mapStateToProps, {
+  movieInfo,
+  loadUser,
+  loadUserProfile
+})(Main);

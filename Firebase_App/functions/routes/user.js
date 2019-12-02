@@ -5,7 +5,7 @@ const firebase = require("firebase");
 let database = firebase.database();
 
 router.get("/", (req, res) => {
-  console.log(req.user);
+  console.log("user: ", req.user);
   if (req.user) {
     database.ref("users/" + req.user).on("value", snapshot => {
       console.log("---------------------------");
@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
     });
   } else {
     console.log("user none");
-    res.send("user info");
+    res.send(undefined);
   }
 });
 

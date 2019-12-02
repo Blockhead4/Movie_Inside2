@@ -93,10 +93,17 @@ export const loadUser = () => async (dispatch, getState) => {
     .get("/api/user", tokenConfig(getState))
     .then(res => {
       console.log(res);
-      dispatch({
-        type: types.USER_LOADED,
-        payload: res.data
-      });
+      if (res.data) {
+        dispatch({
+          type: types.USER_LOADED,
+          payload: res.data
+        });
+      } else {
+        dispatch({
+          type: types.USER_LOADED,
+          payload: null
+        });
+      }
     })
     .catch(err => {
       console.log(err);

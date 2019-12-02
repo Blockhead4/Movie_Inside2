@@ -43,14 +43,26 @@ class RootContainerComponent extends Component {
 
   PrivateRoute = ({ component: ChildComponent, ...rest }) => {
     return (
+      // <Route
+      //   {...rest}
+      //   render={props => {
+      //     if (this.props.auth.isLoading) {
+      //       return <em>Loading...</em>;
+      //     } else if (!this.props.auth.isAuthenticated) {
+      //       return <Redirect to="/login" />;
+      //     } else {
+      //       return <ChildComponent {...props} />;
+      //     }
+      //   }}
+      // />
       <Route
         {...rest}
         render={props => {
-          if (this.props.auth.isLoading) {
-            return <em>Loading...</em>;
-          } else if (!this.props.auth.isAuthenticated) {
+          if (!this.props.auth.user) {
+            console.log(">>>>>>");
             return <Redirect to="/login" />;
           } else {
+            console.log("<<<<<<<<< IN");
             return <ChildComponent {...props} />;
           }
         }}
@@ -67,8 +79,8 @@ class RootContainerComponent extends Component {
           <Switch>
             <PrivateRoute exact path="/" component={Main} />
             <PrivateRoute exact path="/main" component={Main} />
-            <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
           </Switch>
         </BrowserRouter>
       </Fragment>

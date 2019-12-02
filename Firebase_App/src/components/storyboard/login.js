@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 
-import { login } from "../../actions/auth";
+import { login, loadUser } from "../../actions/auth";
 
 import logo from "../../statics/logos/logo04.png";
 import logo2 from "../../statics/logos/logo03.png";
@@ -25,18 +25,26 @@ import {
 class Login extends Component {
   state = {
     username: "",
-    password: ""
+    password: "",
+    isLogin: false
   };
+
+  componentWillReceiveProps() {
+    this.setState({
+      isLogin: true
+    });
+  }
 
   onSubmit = e => {
     e.preventDefault();
     const { username, password } = this.state;
     this.props.login({ username, password });
+    this.props.loadUser();
   };
 
   render() {
-    if (this.props.isAuthenticated) {
-      console.log(this.props.isAuthenticated);
+    if (this.props.user) {
+      console.log(this.props.user);
       return <Redirect to="/main" />;
     }
     return (
@@ -178,7 +186,7 @@ const mapStateToProps = state => {
   }
   return {
     errors,
-    isAuthenticated: state.auth.isAuthenticated
+    user: state.auth.user
   };
 };
 
@@ -190,4 +198,4 @@ const mapStateToProps = state => {
 //   };
 // };
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login, loadUser })(Login);

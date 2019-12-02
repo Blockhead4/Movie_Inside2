@@ -36,7 +36,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
   console.log("deserializeUser come in!");
-  database.ref("users/" + id).on("value", snapshot => {
+  database.ref(`users/${id}`).on("value", snapshot => {
     let userInfo = snapshot.val();
     console.log("deserializeUser", userInfo);
     done(null, userInfo.username);
@@ -53,17 +53,19 @@ passport.use(
     (username, password, done) => {
       console.log("LocalStrategy", username, password);
       let user;
-      database.ref("users/" + username).on(
+      database.ref(`users/${username}`).on(
         "value",
         snapshot => {
-          console.log("user data: \n\n", snapshot.val());
+          console.log("user input: \n", username, "/", password);
+          console.log("user output: \n", snapshot.val());
           user = snapshot.val();
-
-          if (user) {
+          if (user && user.password === password) {
+            console.log("Welcome!");
             return done(null, user, {
               message: "Welcome!"
             });
           } else {
+            console.log("Incorrect information!");
             return done(null, false, {
               message: "Incorrect user information"
             });

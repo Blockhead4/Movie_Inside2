@@ -19,7 +19,7 @@ const authRouter = passport => {
     "/login_process",
     passport.authenticate("local", {
       successRedirect: "/",
-      failureRedirect: "/login"
+      failureRedirect: "/"
     })
   );
 
@@ -34,8 +34,7 @@ const authRouter = passport => {
         snapshot => {
           if (snapshot.val()) {
             console.log("This username already exist!");
-            req.flash("error", "This username already exist!");
-            res.end();
+            return res.redirect("/");
           } else {
             let userInfo = {
               id: shortid.generate(),
@@ -49,7 +48,7 @@ const authRouter = passport => {
               return res.redirect("/");
             });
           }
-          return;
+          return snapshot.val();
         },
         err => {
           console.log(err);

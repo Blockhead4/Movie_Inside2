@@ -35,7 +35,7 @@ class Register extends Component {
   };
 
   render() {
-    if (this.props.isAuthenticated) {
+    if (this.props.user) {
       return <Redirect to="/main" />;
     }
     return (
@@ -170,7 +170,7 @@ const mapStateToProps = state => {
   }
   return {
     errors,
-    isAuthenticated: state.auth.isAuthenticated
+    user: state.auth.user
   };
 };
 
@@ -183,7 +183,4 @@ const mapStateToProps = state => {
 //   };
 // };
 
-export default connect(
-  mapStateToProps,
-  { register }
-)(Register);
+export default connect(mapStateToProps, { register })(Register);
