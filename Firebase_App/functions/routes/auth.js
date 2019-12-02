@@ -21,6 +21,10 @@ const authRouter = passport => {
       successRedirect: "/",
       failureRedirect: "/"
     })
+    // (req, res) => {
+    //   console.log("request: ", req.body);
+    //   res.redirect("/");
+    // }
   );
 
   router.post("/register_process", (req, res) => {
@@ -42,7 +46,7 @@ const authRouter = passport => {
               password: password
             };
             userRef.set(userInfo);
-            console.log("\n maked!");
+            console.log("new user maked!");
             req.login(userInfo, err => {
               if (err) throw err;
               return res.redirect("/");
@@ -56,12 +60,6 @@ const authRouter = passport => {
       );
 
     check();
-
-    // req.login(userInfo, err => {
-    //   if (err) throw err;
-    //   console.log("login!~!!!\n\n", userInfo);
-    //   return res.redirect("/main");
-    // });
   });
 
   router.get("/logout_process", (req, res) => {

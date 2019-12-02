@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { connect } from "react-redux";
-
-import { getScore } from "../../actions/movieScore";
 
 import {
   Radar,
@@ -20,7 +17,7 @@ const EmotionGraph = props => {
   const [movieData, setMovieData] = useState([]);
   const scoreLoaded = useSelector(state => state.getScore.scoreLoaded);
   const user = useSelector(state => state.auth.user);
-  console.log("emotion user: ", user);
+  // console.log("emotion user: ", user);
   let score = movieData;
 
   let data;

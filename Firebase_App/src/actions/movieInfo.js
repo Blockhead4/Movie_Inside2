@@ -8,7 +8,7 @@ export const movieInfo = searchInfo => async dispatch => {
   await axios
     .get(url)
     .then(res => {
-      console.log(res.data);
+      // console.log(res.data);
       dispatch({
         type: types.GET_MOVIE_INFO,
         payload: res.data
@@ -26,7 +26,7 @@ export const recentMovieInfo = searchInfo => async dispatch => {
   await axios
     .get(url)
     .then(res => {
-      console.log(res.data);
+      // console.log(res.data);
       dispatch({
         type: types.GET_RECENT_MOVIE_INFO,
         payload: res.data

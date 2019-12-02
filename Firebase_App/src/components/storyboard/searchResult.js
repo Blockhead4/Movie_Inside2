@@ -48,7 +48,7 @@ const SearchResult = props => {
     return (
       <StyledContent>
         {selected.map(info => {
-          console.log("seleted: ", info);
+          // console.log("seleted: ", info);
           return (
             <MovieDetailsInfo
               key={info.movieCd}
@@ -98,7 +98,8 @@ const SearchResult = props => {
     </StyledContent>
   );
 
-  console.log("details: ", isDetails);
+  // console.log("details: ", isDetails);
+
   return (
     <div style={{ flex: 1 }}>
       {isDetails ? (

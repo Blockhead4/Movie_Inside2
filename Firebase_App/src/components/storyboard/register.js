@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 
-import { register } from "../../actions/auth";
+import { loadUser, register } from "../../actions/auth";
 
 import logo from "../../statics/logos/logo04.png";
 import logo2 from "../../statics/logos/logo03.png";
@@ -30,8 +30,8 @@ class Register extends Component {
   onSubmit = e => {
     e.preventDefault();
     const { username, password } = this.state;
-    const newUser = { username, password };
-    this.props.register(newUser);
+    this.props.register({ username, password });
+    this.props.loadUser();
   };
 
   render() {
@@ -183,4 +183,4 @@ const mapStateToProps = state => {
 //   };
 // };
 
-export default connect(mapStateToProps, { register })(Register);
+export default connect(mapStateToProps, { register, loadUser })(Register);

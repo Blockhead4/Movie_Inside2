@@ -14,7 +14,7 @@ const app = express();
 firebase.initializeApp(config.firebaseConfig);
 
 app.use(helmet());
-// app.use(express.static("../build"));
+app.use(express.static("../build"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(compression());
 app.use(session(config.sessionConfig));
@@ -35,20 +35,25 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  console.log("deserializeUser come in!");
-  database.ref(`users/${id}`).on("value", snapshot => {
-    let userInfo = snapshot.val();
-    console.log("deserializeUser", userInfo);
-    done(null, userInfo.username);
-  });
+  console.log("---------------------------");
+  console.log("deserializeUser come in!", id);
+  console.log("---------------------------");
+  // database.ref(`users/${id}`).on("value", snapshot => {
+  //   let userInfo = snapshot.val();
+  //   console.log("deserializeUser", userInfo);
+  //   done(null, userInfo.username);
+  // });
+  done(null, id);
 });
 
 passport.use(
+  "local",
   new LocalStrategy(
     {
       usernameField: "username",
-      passwordField: "password"
-      // session: true
+      passwordField: "password",
+      session: true,
+      passReqToCallback: false
     },
     (username, password, done) => {
       console.log("LocalStrategy", username, password);

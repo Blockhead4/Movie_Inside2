@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 
-import { login, loadUser } from "../../actions/auth";
+import { loadUser, login } from "../../actions/auth";
 
 import logo from "../../statics/logos/logo04.png";
 import logo2 from "../../statics/logos/logo03.png";
@@ -25,15 +25,8 @@ import {
 class Login extends Component {
   state = {
     username: "",
-    password: "",
-    isLogin: false
+    password: ""
   };
-
-  componentWillReceiveProps() {
-    this.setState({
-      isLogin: true
-    });
-  }
 
   onSubmit = e => {
     e.preventDefault();
