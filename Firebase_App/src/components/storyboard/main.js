@@ -21,7 +21,7 @@ const Main = props => {
 
   useEffect(() => {
     console.log("user loaded!!");
-    props.loadUser();
+    // props.loadUser();
     props.loadUserProfile();
   }, [isMyPage]);
 
@@ -118,6 +118,6 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   movieInfo,
-  loadUser,
+  // loadUser,
   loadUserProfile
 })(Main);

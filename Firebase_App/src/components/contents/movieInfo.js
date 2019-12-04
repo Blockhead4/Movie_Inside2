@@ -36,40 +36,35 @@ import { ic_fiber_new } from "react-icons-kit/md/ic_fiber_new";
 // axios.defaults.xsrfCookieName = "csrftoken";
 
 export const getConfig = () => {
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
   const config = {
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "text/plain"
     }
   };
 
-  if (token) {
-    config.headers["Authorization"] = `Token ${token}`;
-  }
+  // if (token) {
+  //   config.headers["Authorization"] = `Token ${token}`;
+  // }
 
   return config;
 };
 
-const seenMovie = async watchedMovie => {
+const handleProfileBtn = async (movieCd, clickType) => {
   const config = getConfig();
-  const body = { watchedMovie: watchedMovie };
-
-  await axios.post("/api/profile/", body, config);
+  console.log(movieCd);
+  await axios.post(`/api/user/profile/${clickType}`, movieCd, config);
 };
 
-const likeMovie = async like => {
-  const config = getConfig();
-  const body = { like: like };
+// const likeMovie = async like => {
+//   const config = getConfig();
+//   await axios.post("/api/user/profile/like", like, config);
+// };
 
-  await axios.post("/api/profile/", body, config);
-};
-
-const hateMovie = async hate => {
-  const config = getConfig();
-  const body = { hate: hate };
-
-  await axios.post("/api/profile/", body, config);
-};
+// const hateMovie = async hate => {
+//   const config = getConfig();
+//   await axios.post("/api/user/profile/hate", hate, config);
+// };
 
 // 검색 페이지 영화 요약 정보
 export class MovieSearchInfo extends Component {
@@ -427,9 +422,11 @@ let MovieStatusButtons = memo(props => {
   let initialLike;
   let initialHate;
 
-  if (profile && profile !== []) {
+  console.log("movie info: ", profile);
+
+  if (profile && profile !== [] && profile) {
     for (let i = 0; i < profile.length; i++) {
-      if (value === profile[i].watchedMovie) {
+      if (value === profile[i].seen) {
         initialSeen = true;
       }
       if (value === profile[i].like) {
@@ -469,7 +466,7 @@ let MovieStatusButtons = memo(props => {
         title={"이미 봤어요"}
         onClick={() => {
           handleClick("isSeen");
-          seenMovie(value);
+          handleProfileBtn(value, "seen");
         }}
       >
         <StyledMovieIcon color={isSeen ? "black" : "rgba(113, 128, 147, 0.2)"}>
@@ -480,7 +477,7 @@ let MovieStatusButtons = memo(props => {
         title={"좋아요"}
         onClick={() => {
           handleClick("isLike");
-          likeMovie(value);
+          handleProfileBtn(value, "like");
         }}
       >
         <StyledMovieIcon
@@ -493,7 +490,7 @@ let MovieStatusButtons = memo(props => {
         title={"별로에요"}
         onClick={() => {
           handleClick("isHate");
-          hateMovie(value);
+          handleProfileBtn(value, "hate");
         }}
       >
         <StyledMovieIcon

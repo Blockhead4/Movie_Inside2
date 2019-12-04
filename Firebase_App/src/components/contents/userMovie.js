@@ -32,20 +32,22 @@ const UserMovie = memo(props => {
   }, [props.pageChange, props.name]);
 
   const loadProfile = () => {
-    props.profile.forEach(async element => {
-      if (props.name === "like") {
-        await userMovie(element.like);
-      } else if (props.name === "hate") {
-        await userMovie(element.hate);
-      } else {
-        await userMovie(element.watchedMovie);
-      }
-    });
-    // }
-    return () => {
-      setUserMovieInfo([]);
-      setIsDetails(false);
-    };
+    console.log("user movie: ", props.profile);
+    if (props.profile) {
+      props.profile.forEach(async element => {
+        if (props.name === "like") {
+          await userMovie(element.like);
+        } else if (props.name === "hate") {
+          await userMovie(element.hate);
+        } else {
+          await userMovie(element.watchedMovie);
+        }
+      });
+      return () => {
+        setUserMovieInfo([]);
+        setIsDetails(false);
+      };
+    }
   };
 
   let query = [];
@@ -170,7 +172,7 @@ const UserMovie = memo(props => {
       ) : (
         <div></div>
       )}
-      <div>{props.profile.length > 0 ? userMoviecomponent() : noResult}</div>
+      <div>{props.profile ? userMoviecomponent() : noResult}</div>
     </div>
   );
 });

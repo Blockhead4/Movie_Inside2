@@ -20,7 +20,31 @@ router.get("/", (req, res) => {
 });
 
 router.get("/profile", (req, res) => {
-  res.send("user profile");
+  console.log("user profile IN!!", req.user);
+  database.ref(`users/${req.user}/profile`).on("value", snapshot => {
+    console.log("---------------------------");
+    console.log(snapshot.val());
+    console.log("---------------------------");
+    res.json(snapshot.val());
+  });
+});
+
+router.post("/profile/:clickType", (req, res) => {
+  console.log("Add user profile: ", req.user);
+  console.log("path: ", req.path);
+  let data = req.body;
+  let profileRef = database.ref(`users/${req.user}` + req.path);
+  profileRef.on("value", snapshot => {
+    console.log("---------------------------");
+    console.log(snapshot.val());
+    console.log("---------------------------");
+    if (snapshot.val()) {
+      console.log("update: ", data);
+      profileRef.update(data);
+    } else {
+      profileRef.set(data);
+    }
+  });
 });
 
 module.exports = router;
